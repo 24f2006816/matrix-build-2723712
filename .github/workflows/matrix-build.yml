@@ -8,7 +8,7 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]   # 3 different builds
+        os: [ubuntu-latest, windows-latest, macos-latest]
 
     runs-on: ${{ matrix.os }}
 
@@ -16,13 +16,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: matrix-2723712      # ✅ Required identifier
+      # Required identifier
+      - name: matrix-2723712
         run: echo "Building for OS: ${{ matrix.os }}"
 
-      - name: Generate artifact
+      - name: Generate artifact file
+        shell: bash
         run: |
           echo "Build output for ${{ matrix.os }}" > output-${{ matrix.os }}.txt
-          echo "Generated at $(date)" >> output-${{ matrix.os }}.txt
+          echo "Generated on $(date)" >> output-${{ matrix.os }}.txt
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
